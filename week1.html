@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Guessing game</title>
+</head>
+
+<body>
+    <div id="message">Guess the number</div>
+    <input type="number" id="number">
+    <button id="guessButton">Guess</button>
+</body>
+<script>
+const button = document.getElementById('guessButton');
+const message = document.getElementById('message');
+var limitGuess = 10;
+var randomNumber = Math.floor(Math.random() * 20); 
+console.log(randomNumber);
+button.addEventListener('click', function() {
+    var userGuess = document.getElementById('number').value;
+    console.log(parseInt(userGuess));
+   if(parseInt(userGuess) == randomNumber)
+   {
+        message.textContent = 'Congratulations!! You guessed correctly. It took you ' + (10 - limitGuess) + ' tries to guess.';
+        message.style.background = 'green';
+   }
+   else if(parseInt(userGuess) < randomNumber)
+   {
+       limitGuess--;
+        message.textContent = 'Sorry your guess is too low. You guessed ' + userGuess + '. You have ' + limitGuess + ' guesses left';
+        message.style.background = 'red';
+   }
+   else
+   {
+       limitGuess--;
+        message.textContent = 'Sorry your guess is too high. You guessed ' + userGuess + '. You have ' + limitGuess + ' guesses left';
+        message.style.background = 'red';
+   }
+});
+</script>
+
+</html>
