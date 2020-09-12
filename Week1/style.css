@@ -1,0 +1,40 @@
+body{
+    font-family: Montserrat;
+}
+.container {
+  width: 300px;
+  border: 5px solid black;
+  padding: 50px;
+  margin: 20px;
+  border-radius: 15px;
+  box-shadow: 5px 10px #888888;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#message {
+    text-align: center;
+    margin: 10px;
+}
+#guessButton {
+    font-weight: bold;
+  text-align: center;
+  border: 5px solid black;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 5px 10px #888888;
+  cursor: pointer;
+}
+#number {
+    padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}

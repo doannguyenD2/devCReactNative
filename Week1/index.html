@@ -2,41 +2,61 @@
 <html>
 
 <head>
-<title>Guessing game</title>
+    <title>Guessing game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="message">Guess the number</div>
-    <input type="number" id="number">
-    <button id="guessButton">Guess</button>
+    <div class="container">
+        <div id="message">Guess the number</div>
+        <input type="number" id="number" placeholder="What is your number?">
+        <div id="guessButton">Guess</div>
+    </div>
 </body>
 <script>
-const button = document.getElementById('guessButton');
-const message = document.getElementById('message');
-var limitGuess = 10;
-var randomNumber = Math.floor(Math.random() * 20); 
-console.log(randomNumber);
-button.addEventListener('click', function() {
-    var userGuess = document.getElementById('number').value;
-    console.log(parseInt(userGuess));
-   if(parseInt(userGuess) == randomNumber)
-   {
-        message.textContent = 'Congratulations!! You guessed correctly. It took you ' + (10 - limitGuess) + ' tries to guess.';
-        message.style.background = 'green';
-   }
-   else if(parseInt(userGuess) < randomNumber)
-   {
-       limitGuess--;
-        message.textContent = 'Sorry your guess is too low. You guessed ' + userGuess + '. You have ' + limitGuess + ' guesses left';
-        message.style.background = 'red';
-   }
-   else
-   {
-       limitGuess--;
-        message.textContent = 'Sorry your guess is too high. You guessed ' + userGuess + '. You have ' + limitGuess + ' guesses left';
-        message.style.background = 'red';
-   }
-});
+    const button = document.getElementById('guessButton');
+    const message = document.getElementById('message');
+    var pastGuess = [];
+    var limitGuess = 10;
+    var secondCounting = 5;
+    var randomNumber = Math.floor(Math.random() * 20);
+    var displayText = (message) => {
+        text = '';
+        pastGuess.forEach(e => text += e + ', ')
+        return message + ' You guessed ' + text + ' . You have ' + limitGuess + ' guesses left';
+    };
+    function reloadPage(time) {
+        setInterval(function () {
+            if (time > 0) {
+                time -= 1;
+                button.textContent = 'Reload in ' + time + 's';
+            } else {
+                window.location.reload(1);
+            };
+        }, 1000);
+    };
+    button.addEventListener('click', function () {
+        var userGuess = document.getElementById('number').value;
+        pastGuess.push(userGuess);
+        console.log(parseInt(userGuess));
+        if (parseInt(userGuess) == randomNumber) {
+            message.textContent = 'Congratulations!! You guessed correctly. It took you ' + (10 - limitGuess) + ' tries to guess.';
+            message.style.background = 'lightgreen';
+            reloadPage(5);
+            this.style.pointerEvents = 'none';
+        }
+        else if (parseInt(userGuess) < randomNumber) {
+            limitGuess--;
+            message.textContent = displayText('Sorry your guess is too low.');
+            message.style.background = 'indianred';
+        }
+        else {
+            limitGuess--;
+            message.textContent = displayText('Sorry your guess is too high.')
+            message.style.background = 'indianred';
+        }
+    },
+    );
 </script>
 
 </html>
